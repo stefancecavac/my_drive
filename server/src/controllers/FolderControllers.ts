@@ -46,8 +46,8 @@ export async function deleteFolder(req: Request, res: Response, next: NextFuncti
     if (!folderId) throw new CustomError("Please provide folder id", 400);
     if (!validator.isUUID(folderId)) throw new CustomError("Please provide a valid folderId", 400);
 
-    const deletedFolder = await deleteFolderService(folderId);
-    res.status(200).json(deletedFolder);
+    const deletedFolders = await deleteFolderService(folderId);
+    res.status(200).json(deletedFolders);
   } catch (error) {
     next(error);
   }
