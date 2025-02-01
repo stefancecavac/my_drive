@@ -14,12 +14,13 @@ datasource db {
 }
 
 model File {
-  id       String  @unique @default(uuid())
-  name     String
-  size     Int
-  filePath String
-  folder   Folder? @relation(fields: [folderId], references: [id])
-  folderId String?
+  id        String  @unique @default(uuid())
+  name      String
+  size      Int
+  extension String
+  filePath  String
+  folder    Folder? @relation(fields: [folderId], references: [id])
+  folderId  String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

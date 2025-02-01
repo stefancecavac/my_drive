@@ -14,6 +14,7 @@ export async function getSingleFolderService(folderId: string) {
       },
       include: {
         subFolders: true,
+        files: true,
       },
     });
 

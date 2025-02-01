@@ -2,6 +2,8 @@ import express from "express";
 import dotevn from "dotenv";
 import cors from "cors";
 import folderRouter from "./routes/FolderRoutes";
+import fileRouter from "./routes/FileRoutes";
+
 import { errorHandler } from "./middlewares/ErrorHandler";
 
 dotevn.config();
@@ -12,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/folders", folderRouter);
+app.use("/api/files", fileRouter);
 
 app.use(errorHandler);
 
