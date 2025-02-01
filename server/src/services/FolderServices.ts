@@ -51,10 +51,21 @@ export async function deleteFolderService(folderId: string) {
       },
       include: {
         subFolders: true,
+        files: true,
       },
     });
 
     if (!folder) return;
+
+    await Promise.all(
+      folder.files.map((file) => {
+        return client.file.delete({
+          where: {
+            id: file.id,
+          },
+        });
+      })
+    );
 
     await Promise.all(
       folder.subFolders.map((folder) => {

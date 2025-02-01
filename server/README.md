@@ -1,4 +1,4 @@
 TODOs for my app
 
-[] Add auth
-[] When deleting folders delete files
+- [] Add auth
+- [] Add file upload and storage on server
