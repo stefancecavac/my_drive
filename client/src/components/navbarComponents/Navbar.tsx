@@ -1,6 +1,6 @@
 export const Navbar = () => {
   return (
-    <div className="w-70 flex flex-col gap-5 border-r border-base-300 shadow-lg p-2 z-20">
+    <div className="w-70 flex flex-col gap-5  shadow-lg p-2 border-r border-neutral">
       <div className="flex  items-center gap-3">
         <svg
           xmlns="http://www.w3.org/2000/svg"

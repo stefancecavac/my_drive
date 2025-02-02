@@ -1,10 +1,10 @@
 import { client } from "../db/Client";
 
-export async function getCurrentFolderService({ folderId, userId }: { folderId: string; userId: string }) {
+export async function getCurrentFolderService({ folderId }: { folderId: string }) {
   const folder = await client.folder.findUnique({
     where: {
       id: folderId,
-      userId: userId,
+      // userId: userId,
     },
     include: {
       subFolders: true,
@@ -12,7 +12,22 @@ export async function getCurrentFolderService({ folderId, userId }: { folderId: 
     },
   });
 
-  return folder;
+  let breadCrumbs = [];
+  let currentId = folderId;
+
+  while (currentId) {
+    const parent = await client.folder.findUnique({
+      where: {
+        id: currentId,
+      },
+    });
+    if (!parent) break;
+
+    breadCrumbs.unshift({ id: parent.id, name: parent.name });
+    currentId = parent.parentFolderId!;
+  }
+
+  return { ...folder, breadCrumbs };
 }
 
 export async function createFolderService({ name, parentFolderId, userId }: { name: string; parentFolderId: string; userId: string }) {

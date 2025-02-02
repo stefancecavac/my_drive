@@ -5,10 +5,10 @@ import validator from "validator";
 
 export async function getCurrentFolder(req: Request, res: Response, next: NextFunction) {
   const { folderId } = req.params;
-  const { userId } = req.user;
+  // const { userId } = req.user;
 
   try {
-    const folder = await getCurrentFolderService({ folderId, userId });
+    const folder = await getCurrentFolderService({ folderId });
 
     res.status(200).json(folder);
   } catch (error) {
