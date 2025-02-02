@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark;
+}
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+
+  --color-primary: #2563eb; /* Google Drive Blue */
+  --color-secondary: #16a34a; /* Green */
+  --color-accent: #facc15; /* Yellow */
+  --color-neutral: #1e293b; /* Dark Gray */
+  --color-base-100: #f8fafc; /* Light Background */
+  --color-info: #38bdf8;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+}
