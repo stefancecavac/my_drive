@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { loginUserService, registerUserService } from "../services/AuthService";
+import { getCurrentUserService, loginUserService, registerUserService } from "../services/AuthService";
 import jwt from "jsonwebtoken";
 import { generateAccessToken } from "../util/GenerateAccessToken";
 import { CustomError } from "../middlewares/ErrorHandler";
@@ -47,12 +47,33 @@ export async function refreshToken(req: Request, res: Response, next: NextFuncti
     if (!refreshToken) throw new CustomError("No token proivded", 401);
     const decodedToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET as string);
 
+    console.log(decodedToken);
     console.log("decoded token", decodedToken);
 
     if (!decodedToken) throw new CustomError("Token expired or not valid", 403);
-    const accessToken = generateAccessToken((decodedToken as any).id);
+    const accessToken = generateAccessToken((decodedToken as any).userId);
 
     res.status(201).json({ accessToken });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getCurrentUser(req: Request, res: Response, next: NextFunction) {
+  const { userId } = req.user;
+
+  try {
+    const user = await getCurrentUserService(userId);
+
+    res.status(201).json(user);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export function logoutUser(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.clearCookie("refreshToken", { httpOnly: true, secure: true }).send();
   } catch (error) {
     next(error);
   }

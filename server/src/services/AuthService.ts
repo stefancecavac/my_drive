@@ -53,3 +53,19 @@ export async function loginUserService({ email, password }: { email: string; pas
 
   return { accessToken, refreshToken };
 }
+
+export async function getCurrentUserService(userId: string) {
+  if (!userId) throw new CustomError("No UserId provided", 400);
+
+  const user = await client.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      email: true,
+      id: true,
+    },
+  });
+
+  return user;
+}
