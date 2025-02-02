@@ -6,9 +6,10 @@ export async function getAllFilesService() {
   return files;
 }
 
-export async function createFileService({ name, folderId }: { name: string; folderId: string }) {
+export async function createFileService({ name, folderId, userId }: { name: string; folderId: string; userId: string }) {
   const createdFile = await client.file.create({
     data: {
+      userId: userId,
       name: name,
       filePath: "",
       size: 20,

@@ -28,6 +28,23 @@ export async function registerUserService({ email, password }: { email: string; 
     },
   });
 
+  const rootFolder = await client.folder.create({
+    data: {
+      userId: user.id,
+      name: "root",
+      parentFolderId: null,
+    },
+  });
+
+  await client.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      rootId: rootFolder.id,
+    },
+  });
+
   const accessToken = generateAccessToken(user.id);
   const refreshToken = generateRefreshToken(user.id);
 
@@ -64,6 +81,7 @@ export async function getCurrentUserService(userId: string) {
     select: {
       email: true,
       id: true,
+      rootId: true,
     },
   });
 

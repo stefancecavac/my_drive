@@ -1,41 +1,24 @@
 import { client } from "../db/Client";
 
-export async function getAllFoldersService() {
-  const folders = await client.folder.findMany({
-    where: { parentFolderId: null },
+export async function getCurrentFolderService({ folderId, userId }: { folderId: string; userId: string }) {
+  const folder = await client.folder.findUnique({
+    where: {
+      id: folderId,
+      userId: userId,
+    },
+    include: {
+      subFolders: true,
+      files: true,
+    },
   });
-  return folders;
-}
-export async function getSingleFolderService(folderId: string) {
-  async function getFolderWithSubfolder(folderId: string) {
-    const folder = await client.folder.findUnique({
-      where: {
-        id: folderId,
-      },
-      include: {
-        subFolders: true,
-        files: true,
-      },
-    });
-
-    if (!folder) return null;
-
-    folder.subFolders = await Promise.all(
-      folder.subFolders.map(async (folder) => {
-        return (await getFolderWithSubfolder(folder.id))!;
-      })
-    );
-    return folder;
-  }
-
-  const folder = getFolderWithSubfolder(folderId);
 
   return folder;
 }
 
-export async function createFolderService({ name, parentFolderId }: { name: string; parentFolderId: string }) {
+export async function createFolderService({ name, parentFolderId, userId }: { name: string; parentFolderId: string; userId: string }) {
   const createdFolder = await client.folder.create({
     data: {
+      userId: userId,
       name: name,
       parentFolderId: parentFolderId,
     },
