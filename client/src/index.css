@@ -10,7 +10,14 @@
   --color-secondary: #16a34a; /* Green */
   --color-accent: #facc15; /* Yellow */
   --color-neutral: #1e293b; /* Dark Gray */
+
+  --color-base-content: #282929;
+  --color-info-content: #969899;
+
   --color-base-100: #f8fafc; /* Light Background */
+  --color-base-200: #f2f3f5;
+  --color-base-300: #e6e6e6;
+
   --color-info: #38bdf8;
   --color-success: #22c55e;
   --color-warning: #f59e0b;

@@ -4,7 +4,7 @@ import { authentication } from "../middlewares/Authentication";
 
 const router = express.Router();
 
-router.use(authentication);
+// router.use(authentication);
 router.get("/", getAllFolders);
 router.get("/:folderId", getSingleFolder);
 router.post("/", createFolder);
