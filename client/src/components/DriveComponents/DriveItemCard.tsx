@@ -7,7 +7,7 @@ type driveItemCardProps = {
 
 export const DriveItemCard = ({ subFolder }: driveItemCardProps) => {
   return (
-    <Link to={`/${subFolder?.id}`} className="hover:bg-primary/5">
+    <Link to={`/${subFolder?.id}`} className="hover:bg-primary/5 border-b border-neutral">
       <div className="grid grid-cols-4  p-3 pl-5">
         <p className="col-span-2 items-center flex gap-5 text-sm text-base-content">
           <svg
