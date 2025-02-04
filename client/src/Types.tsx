@@ -58,3 +58,10 @@ export const userDataSchema = z.object({
 });
 
 export type UserData = z.infer<typeof userDataSchema>;
+
+export const createFolderSchema = z.object({
+  name: z.string(),
+  parentFolderId: z.string().optional(),
+});
+
+export type CreateFolderData = z.infer<typeof createFolderSchema>;

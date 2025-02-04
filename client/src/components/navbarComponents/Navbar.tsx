@@ -1,12 +1,13 @@
 import { UseAuthContext } from "../../context/AuthContext";
+import { NewItemButton } from "./NewItemButton";
 import { PageLinkComponent } from "./PageLinkComponent";
 
 export const Navbar = () => {
   const { user } = UseAuthContext();
 
   return (
-    <div className="w-70 flex flex-col gap-5  shadow-lg p-2 border-r border-neutral">
-      <div className="flex  items-center gap-3">
+    <div className="w-70 flex flex-col gap-5  shadow-lg p-2 border-r border-neutral px-4">
+      <div className="flex  items-center gap-3 p-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -22,6 +23,10 @@ export const Navbar = () => {
           <path d="M12 22V12" />
         </svg>
         <h1 className="text-base-content text-2xl font-bold">My-Drive</h1>
+      </div>
+
+      <div className="mt-3 mb-5">
+        <NewItemButton></NewItemButton>
       </div>
 
       <div className="flex flex-col gap-2">
