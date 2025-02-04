@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "../lib/ApiClient";
 import { useParams } from "react-router-dom";
-import { folderData } from "../Types";
+import { FolderData } from "../Types";
 
 export const useGetCurrentFolder = () => {
   const { folderId } = useParams();
+  console.log(folderId);
 
   const getCurrentFolderApi = async () => {
     const response = await apiClient.get(`/folders/${folderId}`);
 
-    return response.data as folderData;
+    return response.data as FolderData;
   };
 
   const { data: folder, isFetching: folderLoading } = useQuery({

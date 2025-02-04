@@ -10,8 +10,8 @@ declare module "express" {
 export async function authentication(req: Request, res: Response, next: NextFunction): Promise<any> {
   const accessToken = req.headers.authorization?.split(" ")[1];
 
+  if (!accessToken) return res.status(401).json({ message: "No token provided" });
   try {
-    if (!accessToken) return res.status(401).json({ message: "No token provided" });
     const decodedToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET as string);
 
     if (!decodedToken) return res.status(403).json({ message: "Invalid or expired token" });
@@ -20,6 +20,6 @@ export async function authentication(req: Request, res: Response, next: NextFunc
 
     next();
   } catch (error) {
-    res.status(403).json({ message: "Invalid or expired token" });
+    return res.status(403).json({ message: "Invalid or expired token" });
   }
 }

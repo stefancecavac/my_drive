@@ -12,7 +12,7 @@ export const BreadCrumbs = ({ folder }: breadCrumbsProps) => {
     <div className="text-base-content font-medium  flex items-center ">
       {folder?.breadCrumbs.map((bread: Breadcrumb, index: number) => (
         <div key={bread.id} className="flex items-center mr-2 ">
-          <Link to={`/${bread.id}`} className="btn btn-ghost   gap-2">
+          <Link to={`/${bread.id}`} className="btn btn-ghost hover:bg-base-100   gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

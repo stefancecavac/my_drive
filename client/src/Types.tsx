@@ -23,3 +23,21 @@ export const folderSchema: z.ZodType<FolderData> = z.lazy(() =>
     createdAt: z.string(),
   })
 );
+
+export const signUpSchema = z.object({
+  email: z.string().nonempty({ message: "Please fill out this field" }),
+  password: z.string().min(8, { message: "Password must be atleas 8 characters long" }),
+});
+
+export type SignUpData = z.infer<typeof signUpSchema>;
+
+export const userDataSchema = z.object({
+  id: z.string(),
+  email: z.string(),
+  rootId: z.string(),
+  folders: z.array(folderSchema),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+export type UserData = z.infer<typeof userDataSchema>;

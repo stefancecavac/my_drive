@@ -13,7 +13,7 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: true,
-      maxAge: 60000,
+      maxAge: 864000000,
     });
 
     res.status(201).json({ accessToken });
@@ -31,7 +31,7 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: true,
-      maxAge: 60000,
+      maxAge: 864000000,
     });
 
     res.status(201).json({ accessToken });
@@ -40,11 +40,13 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
   }
 }
 
-export async function refreshToken(req: Request, res: Response, next: NextFunction) {
+export async function refreshToken(req: Request, res: Response, next: NextFunction): Promise<any> {
   const refreshToken = req.cookies.refreshToken;
 
+  console.log(refreshToken);
+
+  if (!refreshToken) return res.status(400).json({ message: "No refresh token" });
   try {
-    if (!refreshToken) throw new CustomError("No token proivded", 401);
     const decodedToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET as string);
 
     console.log(decodedToken);
