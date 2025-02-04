@@ -9,10 +9,10 @@ type Breadcrumb = FolderData["breadCrumbs"][0];
 
 export const BreadCrumbs = ({ folder }: breadCrumbsProps) => {
   return (
-    <div className="text-base-content font-medium  flex items-center ">
+    <div className="text-base-content font-medium  h-10 flex items-center ">
       {folder?.breadCrumbs.map((bread: Breadcrumb, index: number) => (
         <div key={bread.id} className="flex items-center mr-2 ">
-          <Link to={`/${bread.id}`} className="btn btn-ghost hover:bg-base-100   gap-2">
+          <Link to={`/${bread.id}`} className="btn btn-ghost rounded-lg hover:bg-base-100   gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

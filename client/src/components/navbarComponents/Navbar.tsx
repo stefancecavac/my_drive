@@ -1,11 +1,9 @@
-import { UserData } from "../../Types";
+import { UseAuthContext } from "../../context/AuthContext";
 import { PageLinkComponent } from "./PageLinkComponent";
 
-type navbarProps = {
-  user: UserData;
-};
+export const Navbar = () => {
+  const { user } = UseAuthContext();
 
-export const Navbar = ({ user }: navbarProps) => {
   return (
     <div className="w-70 flex flex-col gap-5  shadow-lg p-2 border-r border-neutral">
       <div className="flex  items-center gap-3">
