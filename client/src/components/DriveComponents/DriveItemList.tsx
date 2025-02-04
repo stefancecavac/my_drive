@@ -1,7 +1,8 @@
 import { useGetCurrentFolder } from "../../api/FolderApi";
-import { FolderData } from "../../Types";
+import { FileData, FolderData } from "../../Types";
 import { BreadCrumbs } from "./BreadCrumbs";
-import { DriveItemCard } from "./DriveItemCard";
+import { FileItemCard } from "./FileItemCard";
+import { FolderItemCard } from "./FolderItemCard";
 
 export const DriveItemList = () => {
   const { folder, folderLoading } = useGetCurrentFolder();
@@ -19,7 +20,14 @@ export const DriveItemList = () => {
           {folderLoading ? (
             <span className="loading loading-spinner text-primary flex grow items-center justify-center  mx-auto "></span>
           ) : (
-            folder?.subFolders?.map((subFolder: FolderData) => <DriveItemCard key={subFolder.id} subFolder={subFolder}></DriveItemCard>)
+            <>
+              {folder?.subFolders?.map((subFolder: FolderData) => (
+                <FolderItemCard key={subFolder.id} subFolder={subFolder}></FolderItemCard>
+              ))}
+              {folder?.files?.map((file: FileData) => (
+                <FileItemCard key={file.id} file={file}></FileItemCard>
+              ))}
+            </>
           )}
         </div>
       </div>

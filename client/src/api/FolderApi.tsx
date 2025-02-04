@@ -5,7 +5,6 @@ import { FolderData } from "../Types";
 
 export const useGetCurrentFolder = () => {
   const { folderId } = useParams();
-  console.log(folderId);
 
   const getCurrentFolderApi = async () => {
     const response = await apiClient.get(`/folders/${folderId}`);

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FolderData } from "../../Types";
 
 type breadCrumbsProps = {
-  folder: FolderData;
+  folder: FolderData | undefined;
 };
 
 type Breadcrumb = FolderData["breadCrumbs"][0];
