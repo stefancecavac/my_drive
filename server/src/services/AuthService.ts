@@ -4,6 +4,8 @@ import { client } from "../db/Client";
 import bcrypt from "bcrypt";
 import { generateAccessToken } from "../util/GenerateAccessToken";
 import { generateRefreshToken } from "../util/GenerateRefreshToken";
+import fs from "fs";
+import path from "path";
 
 export async function registerUserService({ email, password }: { email: string; password: string }) {
   if (!email || !password) throw new CustomError("Email and password must not be empty ", 400);
@@ -27,6 +29,9 @@ export async function registerUserService({ email, password }: { email: string; 
       password: hashedPassword,
     },
   });
+  const userFolderPath = path.join("../server/uploads", user.id.toString());
+
+  await fs.promises.mkdir(userFolderPath, { recursive: true });
 
   const rootFolder = await client.folder.create({
     data: {
@@ -35,6 +40,9 @@ export async function registerUserService({ email, password }: { email: string; 
       parentFolderId: null,
     },
   });
+
+  const rootFolderPath = path.join(userFolderPath, rootFolder.id.toString());
+  await fs.promises.mkdir(rootFolderPath, { recursive: true });
 
   await client.user.update({
     where: {

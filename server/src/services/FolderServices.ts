@@ -1,10 +1,11 @@
+import path from "path";
 import { client } from "../db/Client";
+import fs from "fs";
 
 export async function getCurrentFolderService({ folderId }: { folderId: string }) {
   const folder = await client.folder.findUnique({
     where: {
       id: folderId,
-      // userId: userId,
     },
     include: {
       subFolders: true,
@@ -38,6 +39,32 @@ export async function createFolderService({ name, parentFolderId, userId }: { na
       parentFolderId: parentFolderId,
     },
   });
+
+  let folderPath = path.join("..", "server", "uploads", userId);
+
+  if (parentFolderId) {
+    let currentFolderId: string | null = parentFolderId;
+    const folderIds: string[] = [];
+
+    while (currentFolderId) {
+      const parentFolder: { id: string; parentFolderId: string | null } | null = await client.folder.findUnique({
+        where: { id: currentFolderId },
+        select: { parentFolderId: true, id: true },
+      });
+
+      if (!parentFolder) break;
+
+      folderIds.unshift(parentFolder.id.toString());
+
+      currentFolderId = parentFolder.parentFolderId;
+    }
+
+    folderPath = path.join(folderPath, ...folderIds);
+  }
+
+  folderPath = path.join(folderPath, createdFolder.id.toString());
+
+  await fs.promises.mkdir(folderPath, { recursive: true });
   return createdFolder;
 }
 

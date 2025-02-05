@@ -43,14 +43,9 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
 export async function refreshToken(req: Request, res: Response, next: NextFunction): Promise<any> {
   const refreshToken = req.cookies.refreshToken;
 
-  console.log(refreshToken);
-
   if (!refreshToken) return res.status(400).json({ message: "No refresh token" });
   try {
     const decodedToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET as string);
-
-    console.log(decodedToken);
-    console.log("decoded token", decodedToken);
 
     if (!decodedToken) throw new CustomError("Token expired or not valid", 403);
     const accessToken = generateAccessToken((decodedToken as any).userId);
