@@ -3,6 +3,7 @@ import { Layout } from "./Layout";
 import { HomePage } from "./pages/HomePage";
 import { SignUpPage } from "./pages/SignUpPage";
 import { UseAuthContext } from "./context/AuthContext";
+import { MyDrivePage } from "./pages/MyDrivePage";
 
 function App() {
   const { user, userLoading } = UseAuthContext();
@@ -24,12 +25,22 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/signup" element={<Navigate to={`/${user.rootId}`} />} />
-        <Route path="*" element={<Navigate to={`/${user.rootId}`} />} />
+        <Route path="*" element={<Navigate to={`/`} />} />
+
         <Route
-          path={`/:folderId`}
+          path={`/`}
           element={
             <Layout>
               <HomePage />
+            </Layout>
+          }
+        />
+
+        <Route
+          path={`/my-drive/:folderId`}
+          element={
+            <Layout>
+              <MyDrivePage />
             </Layout>
           }
         />

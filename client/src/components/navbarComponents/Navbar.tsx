@@ -41,7 +41,7 @@ export const Navbar = () => {
               />
             </svg>
           }
-          linkTo={user.rootId}
+          linkTo={"/"}
         ></PageLinkComponent>
 
         <PageLinkComponent
@@ -63,7 +63,7 @@ export const Navbar = () => {
               <line x1="10" x2="10.01" y1="16" y2="16" />
             </svg>
           }
-          linkTo={"my-drive"}
+          linkTo={`/my-drive/${user.rootId}`}
         ></PageLinkComponent>
 
         <PageLinkComponent
@@ -77,7 +77,7 @@ export const Navbar = () => {
               />
             </svg>
           }
-          linkTo={"shared-with-me"}
+          linkTo={"/shared-with-me"}
         ></PageLinkComponent>
 
         <PageLinkComponent
@@ -91,7 +91,7 @@ export const Navbar = () => {
               />
             </svg>
           }
-          linkTo={"thrash"}
+          linkTo={"/thrash"}
         ></PageLinkComponent>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useCreateFolder } from "../../api/FolderApi";
 import { UseAuthContext } from "../../context/AuthContext";
 import { Dispatch, SetStateAction } from "react";
+import { useParams } from "react-router-dom";
 
 type newFolderProps = {
   setNewFolderShow: Dispatch<SetStateAction<boolean>>;
@@ -11,12 +12,13 @@ type newFolderProps = {
 
 export const NewFolderForm = ({ setNewFolderShow }: newFolderProps) => {
   const { user } = UseAuthContext();
+  const { folderId } = useParams();
 
   const { register, handleSubmit } = useForm<CreateFolderData>({ resolver: zodResolver(createFolderSchema) });
   const { createFolder } = useCreateFolder();
 
   const handleCreateNewFolder = (data: CreateFolderData) => {
-    createFolder({ ...data, parentFolderId: user.rootId }); //harcoded for now TODO use params proly (if on any other page use user.rootId if has folder param use that)
+    createFolder({ ...data, parentFolderId: folderId ?? user.rootId });
   };
 
   return (

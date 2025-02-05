@@ -1,4 +1,3 @@
-import { DriveItemList } from "../components/DriveComponents/DriveItemList";
 import { UseAuthContext } from "../context/AuthContext";
 
 export const HomePage = () => {
@@ -10,10 +9,6 @@ export const HomePage = () => {
           Welcome back , <span className="text-primary font-semibold">{user.email}</span>
         </h2>
         <p className="text-info-content">Welcome Back! Lets continue your activity </p>
-      </div>
-
-      <div className="flex grow mt-20  ">
-        <DriveItemList></DriveItemList>
       </div>
     </div>
   );
